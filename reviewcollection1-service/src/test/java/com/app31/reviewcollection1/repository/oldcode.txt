@@ -1,0 +1,125 @@
+package com.app31.reviewcollection1.repository;
+
+import javax.transaction.Transactional;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.app31.reviewcollection1.model.DealershipState;
+import com.app31.reviewcollection1.model.Reviews;
+
+@SpringBootTest
+class DealershipStateRepositoryTest {
+
+	@Autowired
+	private DealershipStateRepository repository;
+	
+	DealershipState state1  =
+			DealershipState.builder()
+			.stateName("State4")
+			.build();
+	
+	Reviews review1 = 
+			Reviews.builder()
+			.review("1Lorem ipsum dolor sit amet, "
+					+ "consectetur adipiscing elit, "
+					+ "sed do eiusmod tempor incididunt "
+					+ "ut labore et dolore magna aliqua. "
+					+ "Ut enim ad minim veniam, quis "
+					+ "nostrud exercitation ullamco laboris "
+					+ "nisi ut aliquip ex ea commodo consequat.")
+			.build();
+	
+	Reviews review2 = 
+			Reviews.builder()
+			.review("2--Lorem ipsum dolor sit amet, "
+					+ "consectetur adipiscing elit, "
+					+ "sed do eiusmod tempor incididunt "
+					+ "ut labore et dolore magna aliqua. "
+					+ "Ut enim ad minim veniam, quis "
+					+ "nostrud exercitation ullamco laboris "
+					+ "nisi ut aliquip ex ea commodo consequat.")
+			.build();
+	String stateNameString = "State";
+	@Test
+//	@Transactional
+	void getStateFromDatabase() {
+		
+		boolean stateNameBoolean = repository.getStateByNameExists(stateNameString);
+
+//		System.err.println(stateNameBoolean);
+//		
+//		DealershipState stateFound = repository.getDealershipStateByStateName(stateNameString);
+//		
+//		System.err.println(stateFound.getStateName());
+		System.err.println(stateNameBoolean);
+		if(stateNameBoolean == false) {
+			DealershipState stateCreateNew  =
+					DealershipState.builder()
+					.stateName(stateNameString)
+					.build();
+			stateCreateNew.addReview(review2);
+			repository.save(stateCreateNew);			
+		}
+		else {			
+
+			stateFoundAddReviewOnly();
+		}
+	}	
+	
+	
+	@Transactional
+	void stateFoundAddReviewOnly() {
+		DealershipState stateFound = repository.getDealershipStateByStateName(stateNameString);
+		stateFound.addReview(review2);
+		
+
+	}
+
+
+
+//	@Test
+//	void testDealershipStateSaves() {
+//		state1.addReview(review1);
+//		addState("State5");		
+//	}
+//
+	void addState(String stateName) {
+		DealershipState stateAdd  =
+				DealershipState.builder()
+				.stateName(stateName)
+				.build();
+		repository.save(stateAdd);		
+	}
+}
+
+//	@Test
+//	@Transactional
+//	void stateFoundAddReviewOnly() {
+////		boolean stateNameBoolean = repository.getStateByNameExists(stateNameString);
+//				
+//		DealershipState stateFound = repository.getDealershipStateByStateName(stateNameString);
+//		System.err.println(stateFound);
+//		stateFound.addReview(review1);
+//		repository.save(stateFound);
+//	}
+
+	
+//	@Transactional
+
+
+//	@Test
+
+//	void testDealershipStateSaves() {
+//		state1.addReview(review1);
+//		addState("State5");		
+//	}
+//
+//	void addState(String stateName) {
+//		DealershipState stateAdd  =
+//				DealershipState.builder()
+//				.stateName(stateName)
+//				.build();
+//		repository.save(stateAdd);		
+//	}
