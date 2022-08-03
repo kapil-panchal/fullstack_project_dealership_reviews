@@ -2,10 +2,8 @@ package com.app31.reviewcollection1.repository;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,13 +12,11 @@ import com.app31.reviewcollection1.model.DealershipState;
 import com.app31.reviewcollection1.model.Reviews;
 
 @SpringBootTest
+
 class DealershipRepositoryTest {
 
 	@Autowired
 	private DealershipRepository repository;
-	
-	@Autowired
-	private DealershipStateRepository stateRepository;
 	
 	Dealership dealer1 = 
 			Dealership.builder()
@@ -104,19 +100,56 @@ class DealershipRepositoryTest {
 //		
 //	}
 	
-	@Test
-	
-	void getDealershipStateObjectTest() {
+//	@Test
+//	void getDealershipStateObjectTest() {
 //		String stateNameString = "State5";
 //		
 //		DealershipState dealershipStateObject = 
 //				stateRepository.getDealershipStateByStateName(stateNameString);
 //		
 //		System.err.println(dealershipStateObject);
-		DealershipState stateFound = repository.getDealershipState(stateNameString);
-		System.err.println(stateFound);
-		
+//		DealershipState stateFound = repository.getDealershipState(stateNameString);
+//		DealershipState stateFound = stateRepository.getDealershipStateByStateName(stateNameString);
+//		System.err.println(stateFound);
+//		
 //		Dealership dealershipFound = repository.getDealershipObject("Dealer5");
-//		System.err.println(dealershipFound);
+//		
+//		DealershipState dealershipStateExtract = dealershipFound.getDealerState().get(0);
+//		System.err.println(dealershipStateExtract);
+//	}
+	
+	
+//	@Test
+//	void getDealershipStateFromListOfDealersTest() {
+//		List<Dealership> dealershipListFound = repository.findAll();
+//
+//		dealershipListFound.forEach(
+//				temp -> {
+//					if((temp.getDealerState().get(0).getStateName()).compareTo("State5") == 0) {
+//						System.err.println(temp);
+//					}
+//				});
+//
+//		ListIterator<Dealership> it = dealershipListFound.listIterator();
+//		while (it.hasNext()) {
+//			for(int i=0;i<10;i++) {
+//				if((dealershipListFound.get(i).getDealerState().get(0).getStateName()).compareTo("State2") == 0) {
+//					System.err.println(it.ne);					
+//				}
+//			}
+//			it.next();
+//		}		
+//	}
+	
+	
+	@Test
+	void getDealershipNameFromDatabaseListTest() {
+		List<Dealership> dealershipListFromDatabase = repository.findAll();
+		dealershipListFromDatabase.forEach(
+				temp -> {
+					if((temp.getDealerName()).compareTo("Dealer7") == 0) {
+						System.err.println(temp);
+					}
+				});
 	}
 }

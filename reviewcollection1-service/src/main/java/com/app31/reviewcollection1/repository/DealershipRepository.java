@@ -20,10 +20,6 @@ public interface DealershipRepository extends JpaRepository<Dealership, UUID>{
 			nativeQuery = true)
 	Boolean getDealerStateIfExistsInDatabase(String dealerState);
 
-	@Query(value = "SELECT * FROM app31sch.dealerstate WHERE state_name = ?1",
-			nativeQuery = true)
-	DealershipState getDealershipState(String stateName);
-
 	@Query(value = "SELECT * FROM app31sch.dealership WHERE dealer_name = ?1",
 			nativeQuery = true)
 	Dealership getDealershipObject(String dealerName);
