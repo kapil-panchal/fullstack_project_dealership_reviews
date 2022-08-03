@@ -32,8 +32,8 @@ public class DealershipController {
 		return new ResponseEntity<>(dealershipList,HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/savedealerhip")
-	public ResponseEntity<Dealership> saveDealershipEntity(@RequestBody Dealership dealership){
+	@PostMapping(value = "/savedealership")
+	public ResponseEntity<Dealership> saveDealershipEntity(@RequestBody Dealership dealership) throws Exception{
 		log.info("Inside saveDealershipEntity method of DealershipController");
 		return new ResponseEntity<>(
 				dealerService.saveDealershipWithAddressAndReview(dealership), 

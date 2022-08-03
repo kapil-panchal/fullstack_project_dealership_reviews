@@ -22,14 +22,14 @@ public class DealerService {
 		return repository.findAll();
 	}
 
-	public Dealership saveDealershipWithAddressAndReview(Dealership dealership) {
+	public Dealership saveDealershipWithAddressAndReview(Dealership dealership) throws Exception {
 
 		boolean dealerNameExists = repository.getDealerNameIfExistsInDatabase(dealership.getDealerName());
 		String dealerStateString = dealership.getDealerState().get(0).getStateName();
-		boolean dealerStateExists = repository.getDealerStateIfExistsInDatabase(dealerStateString);
-
-		//Case1: When dealer false, address = false
-		if(dealerNameExists == false && dealerStateExists == false) {			
+		boolean dealerStateExists = repository.getDealerStateIfExistsInDatabase(dealerStateString);		
+		
+		//Case1: When dealer = false, address = false
+		if(dealerNameExists == false && dealerStateExists == false) {
 			Reviews reviewObject = Reviews.builder()
 					.review(dealership.getDealerState().get(0).getReviewsList().get(0).getReview())
 					.build();
@@ -49,42 +49,47 @@ public class DealerService {
 			log.info("Inside saveDealershipWithAddressAndReview method of DealerService");
 			log.info("Inside Case1: When dealer = false, address = false");
 			return repository.save(dealershipObject);
-		}		
+		}
 		
-		//Case2: When dealer false, address = true		
+		/////////////////////////////////////////////////
+		//Case2: When dealer = false, address = true	
 		if(dealerNameExists == false && dealerStateExists == true) {
 			//get address object from db and then the procedure like above
 			Reviews reviewObject = Reviews.builder()
 					.review(dealership.getDealerState().get(0).getReviewsList().get(0).getReview())
 					.build();
-			System.err.println(reviewObject);
 			
 			//state = true
-			//search in the dealershipState list for the value		
-			List<Dealership> dealershipListDealerState = repository.findAll();
+			//search in the dealershipState list for value and load the value to the variable
+			List<Dealership> dealershipListDealerState = repository.findAll();			
 			dealershipListDealerState.forEach(
 					temp -> {
 						if((temp.getDealerState().get(0).getStateName())
 								.compareTo(dealership.getDealerState()
 										.get(0).getStateName()) == 0) {
 							dealershipStateObject = temp.getDealerState().get(0);
-							System.err.println(temp);
 						}
-					});			
-			
+					});
 			//dealer = false
-			Dealership dealershipObject = Dealership.builder()
-					.dealerName(dealership.getDealerName())
-					.build();
+			
+//			Dealership dealershipObject = Dealership.builder()
+//					.dealerName(dealership.getDealerName())
+//					.build();			
+			
+			List<Dealership> dealerListObj = repository.findAll();//
+			Dealership dealershipObject1 = dealerListObj.get(0);//
+			dealershipObject1.setDealerName(dealership.getDealerName());//
 			
 			dealershipStateObject.addReview(reviewObject);
-			dealershipObject.addDealerAddress(dealershipStateObject);
+//			dealershipObject1.addDealerAddress(dealershipStateObject);//
 			log.info("Inside saveDealershipWithAddressAndReview method of DealerService");
 			log.info("Inside Case2: When dealer = false, address = true");
-			return repository.save(dealershipObject);
-		}		
+			System.err.println(dealershipObject1);//
+			return repository.save(dealershipObject1);//
+		}
+		/////////////////////////////////////////////////
 		
-		//Case3: When dealer true, address = false
+		//Case3: When dealer = true, address = false
 		if(dealerNameExists == true && dealerStateExists == false) {
 			//get dealer object from db and then the procedure like above
 			Reviews reviewObject = Reviews.builder()
@@ -107,7 +112,7 @@ public class DealerService {
 			return repository.save(dealershipObject);
 		}		
 		
-		//Case4: When dealer true, address = true
+		//Case4: When dealer = true, address = true
 		if(dealerNameExists == true && dealerStateExists == true) {
 			//get both dealer and address object from db and then the procedure like above
 			Reviews reviewObject = Reviews.builder()
@@ -115,29 +120,26 @@ public class DealerService {
 					.build();
 			
 			//state = true
-			List<Dealership> dealershipListDealerState = repository.findAll();			
+			List<Dealership> dealershipListDealerState = repository.findAll();
 			dealershipListDealerState.forEach(
 					temp -> {
 						if((temp.getDealerState().get(0).getStateName())
 								.compareTo(dealership.getDealerState()
 										.get(0).getStateName()) == 0) {
 							dealershipStateObject = temp.getDealerState().get(0);
-							System.err.println(temp);
 						}
-					});	
+					});
 			
 			//dealer = true
 			Dealership dealershipObject = 
-					repository.getDealershipObject(dealership.getDealerName());
-			
+					repository.getDealershipObject(dealership.getDealerName());			
 			dealershipStateObject.addReview(reviewObject);
-			dealershipObject.addDealerAddress(dealershipStateObject);
 			log.info("Inside saveDealershipWithAddressAndReview method of DealerService");
 			log.info("Inside Case4: When dealer = true, address = true");
 			return repository.save(dealershipObject);
 		}
 		else {
-			return null;
+			throw new IllegalAccessException("Illegal Arguments passed");			
 		}
 	}
 }

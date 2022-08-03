@@ -117,39 +117,29 @@ class DealershipRepositoryTest {
 //		DealershipState dealershipStateExtract = dealershipFound.getDealerState().get(0);
 //		System.err.println(dealershipStateExtract);
 //	}
-	
-	
-//	@Test
-//	void getDealershipStateFromListOfDealersTest() {
-//		List<Dealership> dealershipListFound = repository.findAll();
-//
+
+
+	@Test
+	void getDealershipStateFromListOfDealersTest() {
+		List<Dealership> dealershipListFound = repository.findAll();
+		System.err.println(dealershipListFound);
 //		dealershipListFound.forEach(
 //				temp -> {
-//					if((temp.getDealerState().get(0).getStateName()).compareTo("State5") == 0) {
+////					if((temp.getDealerState().get(0).getStateName()).compareTo("State2") == 0) {
+//						System.err.println(temp);
+////					}
+//				});
+	}
+
+
+//	@Test
+//	void getDealershipNameFromDatabaseListTest() {
+//		List<Dealership> dealershipListFromDatabase = repository.findAll();
+//		dealershipListFromDatabase.forEach(
+//				temp -> {
+//					if((temp.getDealerName()).compareTo("Dealer2") == 0) {
 //						System.err.println(temp);
 //					}
 //				});
-//
-//		ListIterator<Dealership> it = dealershipListFound.listIterator();
-//		while (it.hasNext()) {
-//			for(int i=0;i<10;i++) {
-//				if((dealershipListFound.get(i).getDealerState().get(0).getStateName()).compareTo("State2") == 0) {
-//					System.err.println(it.ne);					
-//				}
-//			}
-//			it.next();
-//		}		
 //	}
-	
-	
-	@Test
-	void getDealershipNameFromDatabaseListTest() {
-		List<Dealership> dealershipListFromDatabase = repository.findAll();
-		dealershipListFromDatabase.forEach(
-				temp -> {
-					if((temp.getDealerName()).compareTo("Dealer7") == 0) {
-						System.err.println(temp);
-					}
-				});
-	}
 }
