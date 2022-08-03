@@ -2,11 +2,15 @@ package com.app31.reviewcollection1.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import com.app31.reviewcollection1.model.Dealership;
 import com.app31.reviewcollection1.model.DealershipState;
 import com.app31.reviewcollection1.model.Reviews;
 import com.app31.reviewcollection1.repository.DealershipRepository;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -22,6 +26,7 @@ public class DealerService {
 		return repository.findAll();
 	}
 
+	
 	public Dealership saveDealershipWithAddressAndReview(Dealership dealership) throws Exception {
 
 		boolean dealerNameExists = repository.getDealerNameIfExistsInDatabase(dealership.getDealerName());
@@ -61,31 +66,37 @@ public class DealerService {
 			
 			//state = true
 			//search in the dealershipState list for value and load the value to the variable
-			List<Dealership> dealershipListDealerState = repository.findAll();			
+			List<Dealership> dealershipListDealerState = repository.findAll();
+			System.err.println(dealershipStateObject);
+			
+			//CONSTRUCTOR
+			//define a no args constructor, not defining it
+			//makes the assigned value to be stored in a null object.
+			dealershipStateObject = DealershipState.builder()
+					.build();
+			
+			// SEARCH FOR VALUES IN DATABASE
 			dealershipListDealerState.forEach(
 					temp -> {
 						if((temp.getDealerState().get(0).getStateName())
 								.compareTo(dealership.getDealerState()
 										.get(0).getStateName()) == 0) {
 							dealershipStateObject = temp.getDealerState().get(0);
+							System.err.println(dealershipStateObject);
 						}
 					});
-			//dealer = false
 			
-//			Dealership dealershipObject = Dealership.builder()
-//					.dealerName(dealership.getDealerName())
-//					.build();			
-			
-			List<Dealership> dealerListObj = repository.findAll();//
-			Dealership dealershipObject1 = dealerListObj.get(0);//
-			dealershipObject1.setDealerName(dealership.getDealerName());//
+			//dealer = false			
+			Dealership dealershipObject = Dealership.builder()
+					.dealerName(dealership.getDealerName())
+					.build();
 			
 			dealershipStateObject.addReview(reviewObject);
-//			dealershipObject1.addDealerAddress(dealershipStateObject);//
+			dealershipObject.addDealerAddress(dealershipStateObject);
 			log.info("Inside saveDealershipWithAddressAndReview method of DealerService");
 			log.info("Inside Case2: When dealer = false, address = true");
-			System.err.println(dealershipObject1);//
-			return repository.save(dealershipObject1);//
+			System.err.println(dealershipObject);
+			return repository.save(dealershipObject);
 		}
 		/////////////////////////////////////////////////
 		
