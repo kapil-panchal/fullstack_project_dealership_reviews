@@ -75,7 +75,7 @@ public class Dealership implements Serializable {
 								referencedColumnName = "stateId"),
 						schema = "app31sch",
 						catalog = "app31cat")
-	List<DealershipState> dealerState;
+	private List<DealershipState> dealerState;
 	
 	public void addDealerAddress(DealershipState dealerStateAddress) {
 		if(dealerState == null) {

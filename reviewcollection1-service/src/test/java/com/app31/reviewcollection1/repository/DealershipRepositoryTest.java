@@ -1,9 +1,9 @@
 package com.app31.reviewcollection1.repository;
 
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -17,6 +17,9 @@ class DealershipRepositoryTest {
 
 	@Autowired
 	private DealershipRepository repository;
+	
+	@Autowired
+	private DealershipStateRepository stateRepository;
 	
 	Dealership dealer1 = 
 			Dealership.builder()
@@ -119,17 +122,17 @@ class DealershipRepositoryTest {
 //	}
 
 
-	@Test
-	void getDealershipStateFromListOfDealersTest() {
-		List<Dealership> dealershipListFound = repository.findAll();
-		System.err.println(dealershipListFound);
-//		dealershipListFound.forEach(
-//				temp -> {
-////					if((temp.getDealerState().get(0).getStateName()).compareTo("State2") == 0) {
-//						System.err.println(temp);
-////					}
-//				});
-	}
+//	@Test
+//	void getDealershipStateFromListOfDealersTest() {
+//		List<Dealership> dealershipListFound = repository.findAll();
+//		System.err.println(dealershipListFound);
+////		dealershipListFound.forEach(
+////				temp -> {
+//////					if((temp.getDealerState().get(0).getStateName()).compareTo("State2") == 0) {
+////						System.err.println(temp);
+//////					}
+////				});
+//	}
 
 
 //	@Test
@@ -142,4 +145,24 @@ class DealershipRepositoryTest {
 //					}
 //				});
 //	}
+	
+	@Test
+	void getDealershipStateNameFromDatabaseTest() {
+//		List<Dealership> dealershipList = repository.findAll();
+//	
+//		dealershipList.forEach(
+//				temp -> {
+//					if(counter++ >= 1) {
+//						System.err.println(temp.getDealerState().get(1).getStateName());
+//					}
+////					System.err.println(temp.getDealerState());
+//				});
+		Boolean statenameExists = repository.getDealerStateIfExistsInDatabase("State2");
+		System.err.println(statenameExists);
+//		DealershipState statenameString = repository.getDealerStateInDatabase("State2");
+//		System.err.println(statenameString);
+		
+		DealershipState statenameString = stateRepository.getDealershipStateByStateName("State2");
+		System.err.println(statenameString);
+	}	
 }

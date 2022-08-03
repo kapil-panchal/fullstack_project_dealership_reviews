@@ -59,7 +59,11 @@ public class DealershipState implements Serializable {
 	@CreationTimestamp
 	private Instant timestamp;
 	
-	@ManyToMany(cascade = CascadeType.ALL,
+	@ManyToMany(cascade = {
+					CascadeType.PERSIST,
+					CascadeType.MERGE,
+					CascadeType.ALL
+					},
 				fetch = FetchType.EAGER)
 
 	@JoinTable(name = "dealerstate_reviews",
