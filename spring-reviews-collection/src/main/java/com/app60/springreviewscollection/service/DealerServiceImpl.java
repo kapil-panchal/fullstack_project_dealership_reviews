@@ -123,4 +123,15 @@ public class DealerServiceImpl implements DealerService{
         log.info("Inside getReview() method of DealerServiceImpl");
         return reviewRepo.getByReview(review);
     }
+
+    @Override
+    public String deleteDealer(UUID id) {
+        log.info("Inside deleteDealer() method of DealerServiceImpl");
+        try {
+            dealerRepo.deleteById(id);
+        } catch (Exception e){
+            throw new UserParameterRuntimeException(e.getMessage());
+        }
+        return "Deleted User Successfully!";
+    }
 }

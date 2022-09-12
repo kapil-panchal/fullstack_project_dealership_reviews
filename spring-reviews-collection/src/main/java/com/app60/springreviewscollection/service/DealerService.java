@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 
+
 public interface DealerService {
 
     void addReviewToLocation(String review, String state);
@@ -27,4 +28,6 @@ public interface DealerService {
     String saveReview(Review review);
 
     Optional<Review> getReview(String review);
+
+    String deleteDealer(UUID id);
 }
