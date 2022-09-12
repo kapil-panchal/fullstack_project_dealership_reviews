@@ -1,8 +1,6 @@
 package com.app31.reviewcollection1.repository;
 
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -157,8 +155,8 @@ class DealershipRepositoryTest {
 //					}
 ////					System.err.println(temp.getDealerState());
 //				});
-		Boolean statenameExists = repository.getDealerStateIfExistsInDatabase("State2");
-		System.err.println(statenameExists);
+//		Boolean statenameExists = repository.getDealerStateIfExistsInDatabase("State2");
+//		System.err.println(statenameExists);
 //		DealershipState statenameString = repository.getDealerStateInDatabase("State2");
 //		System.err.println(statenameString);
 		

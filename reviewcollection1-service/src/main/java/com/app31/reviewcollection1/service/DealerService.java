@@ -26,13 +26,12 @@ public class DealerService {
 		log.info("Inside getDealerDataFromDatabase method of DealerService");
 		return repository.findAll();
 	}
-
 	
 	public Dealership saveDealershipWithAddressAndReview(Dealership dealership) throws Exception {
 
 		boolean dealerNameExists = repository.getDealerNameIfExistsInDatabase(dealership.getDealerName());
 		String dealerStateString = dealership.getDealerState().get(0).getStateName();
-		boolean dealerStateExists = repository.getDealerStateIfExistsInDatabase(dealerStateString);		
+		boolean dealerStateExists = stateRepository.getDealerStateIfExistsInDatabase(dealerStateString);		
 		
 		//Case1: When dealer = false, address = false
 		if(dealerNameExists == false && dealerStateExists == false) {

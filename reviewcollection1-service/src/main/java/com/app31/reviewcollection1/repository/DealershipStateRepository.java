@@ -10,11 +10,10 @@ import com.app31.reviewcollection1.model.DealershipState;
 
 @Repository
 public interface DealershipStateRepository extends JpaRepository<DealershipState, UUID>{
-
 	
 	@Query(value = "SELECT EXISTS(SELECT state_name FROM app31sch.dealerstate WHERE state_name = ?1)",
 			nativeQuery = true)
-	Boolean getStateByNameExists(String stateName);
+	Boolean getDealerStateIfExistsInDatabase(String dealerState);
 	
 	@Query(value = "SELECT * FROM app31sch.dealerstate WHERE state_name = ?1",
 			nativeQuery = true)

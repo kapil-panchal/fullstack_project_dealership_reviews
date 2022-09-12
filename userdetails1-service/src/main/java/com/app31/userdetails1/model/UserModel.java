@@ -2,6 +2,7 @@ package com.app31.userdetails1.model;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ import lombok.ToString;
 @Entity(name = "UserModel")
 @Table(name = "user_model",
 		schema = "app31sch",
-		catalog = "app32cat")
+		catalog = "app31cat")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -59,4 +60,15 @@ public class UserModel implements Serializable {
 	@Column(name = "time_stamp", nullable = false)
 	@CreationTimestamp
 	private Instant timestamp;
+	
+	private String userName;
+	private String password;
+	private String profileImageUrl;
+	private Date lastLoginDate;
+	private Date lastLoginDateDisplay;
+	private Date joinDate;
+	private String[] roles;
+	private String[] authorities;
+	private Boolean isActive;
+	private Boolean isNotLocked;	
 }

@@ -1,16 +1,13 @@
-jwt:
-  secret: '5d275acc-5951-453b-bc3c-3365f4423b46'
-
 server:
-  port: 9001
+  port: 9002
   error:
     include-message: always
 
 spring:
   application:
-    name: userdetails1
+    name: REVIEWS-COLLECTION
   datasource:
-    url: jdbc:postgresql://localhost:5432/app31cat
+    url: jdbc:postgresql://localhost:5432/app60cat
     username: postgres
     password: postgres
   jpa:
@@ -21,3 +18,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
       show-sql: true
+
+keycloak:
+  realm: dealership_reviews
+  auth-server-url: http://localhost:8080/auth
+  resource: REVIEWS-COLLECTION
+  public-client: true
+  bearer-only: true

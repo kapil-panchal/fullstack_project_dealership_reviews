@@ -1,12 +1,12 @@
-package com.app31.userdetails1;
+package com.app60.springreviewscollection;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Userdetails1ServiceApplication {
+public class SpringReviewsCollectionApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Userdetails1ServiceApplication.class, args);
+		SpringApplication.run(SpringReviewsCollectionApplication.class, args);
 	}
 }

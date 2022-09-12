@@ -1,6 +1,5 @@
 package com.app31.userdetails1.repository;
 
-
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -11,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.app31.userdetails1.model.UserModel;
 
-import lombok.extern.slf4j.Slf4j;
-
 @SpringBootTest
 //@DataJpaTest // default goes to H2 database
 
@@ -21,13 +18,12 @@ class UserModelRepositoryTest {
 	@Autowired
 	private UserModelRepository repository;
 	
-	UserModel userModel = 
+	UserModel userModel =
 			UserModel.builder()
 			.firstName("User1FirstName")
 			.lastName("User1LastName")
 			.email("user1@user1.com")
 			.build();
-		
 	
 //	@Test
 //	public void testUserModelSavesDataToTheDatabase() {
@@ -42,8 +38,8 @@ class UserModelRepositoryTest {
 	
 	@Test
 	public void testUserModelExtractsFromDatabase() {
-		List<UserModel> userModelList = 
+		List<UserModel> userModelList =
 				repository.findAll();
-		System.err.println(userModelList.toString());		
+		System.err.println(userModelList.toString());	
 	}
 }
