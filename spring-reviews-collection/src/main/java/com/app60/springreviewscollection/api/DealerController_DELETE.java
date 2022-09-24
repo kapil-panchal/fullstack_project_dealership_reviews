@@ -25,7 +25,7 @@ public class DealerController_DELETE {
     private DealerService dealerService;
 
     @DeleteMapping(path = "/delete/{dealerName}")
-    @RolesAllowed("admin")
+    @RolesAllowed("user")
     public ResponseEntity<Response> deleteDealer(@PathVariable("dealerName")
                                                  String dealerName){
         log.info("Inside deleteDealer() method of DealerController_DELETE");

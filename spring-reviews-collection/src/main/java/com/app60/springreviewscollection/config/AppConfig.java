@@ -37,27 +37,41 @@ public class AppConfig {
                     .name("Dealer1".toLowerCase())
                     .build();
 
+            Dealer dealer2 = Dealer.builder()
+                    .name("Dealer2".toLowerCase())
+                    .build();
+
             dealerRepo.saveAll(
-                    Stream.of(dealer1).collect(Collectors.toList()));
+                    Stream.of(dealer1,dealer2).collect(Collectors.toList()));
 
             Location location1 = Location.builder()
                     .state("State1".toLowerCase())
                     .build();
 
+            Location location2 = Location.builder()
+                    .state("State2".toLowerCase())
+                    .build();
+
             locationRepo.saveAll(
-                    Stream.of(location1).collect(Collectors.toList())
+                    Stream.of(location1, location2).collect(Collectors.toList())
             );
 
             Review review1 = Review.builder()
                     .review("Review1".toLowerCase())
                     .build();
 
+            Review review2 = Review.builder()
+                    .review("Review2".toLowerCase())
+                    .build();
+
             reviewRepo.saveAll(
-                    Stream.of(review1).collect(Collectors.toList())
+                    Stream.of(review1, review2).collect(Collectors.toList())
             );
 
             dealerService.addReviewToLocation(review1.getReview(), location1.getState());
+            dealerService.addReviewToLocation(review2.getReview(), location2.getState());
             dealerService.addLocationToDealer(location1.getState(), dealer1.getName());
+            dealerService.addLocationToDealer(location2.getState(), dealer2.getName());
         };
     }
 }

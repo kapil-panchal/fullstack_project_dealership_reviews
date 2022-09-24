@@ -1,4 +1,4 @@
-package com.app60.springreviewscollection.exceptions;
+package com.app60.springreviewscollection.exception;
 
 import com.app60.springreviewscollection.model.Response;
 import org.springframework.http.HttpStatus;
@@ -10,22 +10,20 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @ControllerAdvice
-public class UserParameterRuntimeExceptionHandler {
+public class UserParametersExceptionHandler {
 
-    @ExceptionHandler(value = {UserParameterRuntimeException.class})
-    public ResponseEntity<Response> handleUserParametersRuntimeException(
-            UserParameterRuntimeException e){
+    @ExceptionHandler(value = {UserParametersException.class})
+    public ResponseEntity<Response> handleUserParameterException(UserParametersException e){
 
         HttpStatus BAD_REQUEST = HttpStatus.BAD_REQUEST;
 
         Response errorResponse = Response.builder()
                 .message(e.getMessage())
-                .throwable(e)
-                .status(BAD_REQUEST)
-                .statusCode(BAD_REQUEST.value())
                 .timeStamp(ZonedDateTime.now(ZoneId.of("Z")))
+                .throwable(e)
+                .statusCode(BAD_REQUEST.value())
+                .status(BAD_REQUEST)
                 .build();
-
-        return new ResponseEntity<>(errorResponse,BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, BAD_REQUEST);
     }
 }

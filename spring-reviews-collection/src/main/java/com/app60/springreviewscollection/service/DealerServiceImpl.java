@@ -1,6 +1,7 @@
 package com.app60.springreviewscollection.service;
 
-import com.app60.springreviewscollection.exceptions.UserParameterRuntimeException;
+
+import com.app60.springreviewscollection.exception.UserParametersException;
 import com.app60.springreviewscollection.model.Dealer;
 import com.app60.springreviewscollection.model.Location;
 import com.app60.springreviewscollection.model.Review;
@@ -43,7 +44,7 @@ public class DealerServiceImpl implements DealerService{
         if((reviewExists == true) && (stateExists == true)){
             stateFromDb.getReviews().add(reviewFromDb);
         } else {
-            throw new UserParameterRuntimeException("Either review/location does not exist");
+            throw new UserParametersException("Either review/location does not exist");
         }
     }
 
@@ -60,7 +61,7 @@ public class DealerServiceImpl implements DealerService{
         if((stateExists == true) && (dealerExists == true)){
             dealerFromDb.getLocations().add(stateFromDb);
         } else {
-            throw new UserParameterRuntimeException("Either location/dealer does not exists");
+            throw new UserParametersException("Either location/dealer does not exists");
         }
     }
 
@@ -83,7 +84,7 @@ public class DealerServiceImpl implements DealerService{
         try {
             dealerRepo.saveAndFlush(dealer);
         } catch (Exception e){
-            throw new UserParameterRuntimeException(e.getMessage());
+            throw new UserParametersException(e.getMessage());
         }
         return "Create Dealer Successful";
     }
@@ -95,7 +96,7 @@ public class DealerServiceImpl implements DealerService{
         try{
             locationRepo.saveAndFlush(state);
         } catch (Exception e){
-            throw new UserParameterRuntimeException(e.getMessage());
+            throw new UserParametersException(e.getMessage());
         }
         return "Location Created Successfully!";
     }
@@ -113,7 +114,7 @@ public class DealerServiceImpl implements DealerService{
         try {
             reviewRepo.saveAndFlush(review);
         } catch (Exception e) {
-            throw new UserParameterRuntimeException(e.getMessage());
+            throw new UserParametersException(e.getMessage());
         }
         return "Review Created Successfully!";
     }
@@ -130,7 +131,7 @@ public class DealerServiceImpl implements DealerService{
         try {
             dealerRepo.deleteById(id);
         } catch (Exception e){
-            throw new UserParameterRuntimeException(e.getMessage());
+            throw new UserParametersException(e.getMessage());
         }
         return "Deleted User Successfully!";
     }

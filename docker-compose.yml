@@ -1,42 +1,59 @@
 version: '3.5'
 services:
-  
+
+  keycloak:
+    container_name: keycloak
+    image: "quay.io/keycloak/keycloak:legacy"
+    depends_on:
+      - "postgres"
+    ports:
+      - "8080:8080"
+      - "8787:8787" # debug port
+    networks:
+      - postgres
+    
+    environment:     
+      DB_URL: "jdbc:postgresql://localhost:5432/keycloak"
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: postgres
+      DB_SCHEMA: public
+      DB_PASSWORD: postgres
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+
   postgres:
-    container_name: postgres
+    container_name: postgres_keycloak
     image: postgres
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGDATA: /data/postgres
+     POSTGRES_USER: postgres
+     POSTGRES_PASSWORD: postgres
+     PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
     ports:
       - "5432:5432"
     networks:
       - postgres
-    restart: unless-stopped
-  
+    
   pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    environment:
+   container_name: pgadmin
+   image: dpage/pgadmin4
+   environment:
       PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
       PGADMIN_DEFAULT_PASSWORD: postgres
       PGADMIN_CONFIG_SERVER_MODE: 'False'
-    volumes:
-      - pgadmin:/var/lib/pgadmin
-    ports:
-      - "5050:80"
-    networks:
-      - postgres
-    restart: unless-stopped
+   volumes:
+     - pgadmin:/var/lib/pgadmin
+   ports:
+     - "5050:80"
+   networks:
+     - postgres
 
 networks:
   postgres:
     driver: bridge
-  spring:
-    driver: bridge
 
 volumes:
   postgres:
-  pgadmin:    
+  pgadmin:
